@@ -7,19 +7,22 @@ l = Log(datetime.utcnow().strftime("logs/%Y/%m (%B)/%d (%A)/%Y-%m-%dT%H.%M.%SZ.l
 def a(*args, **kwargs):
   l.log(f"Called a: {args}")
   b()
+  l.log("Going to call b again...")
+  b()
   l.log("Done stuff")
 
 
-@l.decorate(header="BB")
+@l.decorate()
 def b():
   l.log("Called b")
   l.indent()
   l.log("Cool stuff")
   l.indent()
   l.log("Cool stuff 2")
+  l.unindent()
+  l.log("Cool stuff")
   l.indent()
   l.log("Cool stuff 3")
-  raise Exception("4")
 
 l.log(1)
 x = []
